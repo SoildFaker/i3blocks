@@ -21,6 +21,7 @@ my $status;
 my $percent;
 my $ac_adapt;
 my $full_text;
+my $text_color;
 my $short_text;
 my $bat_number = $ENV{BLOCK_INSTANCE} || 0;
 
@@ -36,12 +37,34 @@ if ($acpi !~ /: (\w+), (\d+)%/) {
 
 $status = $1;
 $percent = $2;
-$full_text = "$percent%";
+
+# consider color and urgent flag only on discharge
+if ($percent < 10) {
+	$full_text = "";
+	$text_color = "#D46D6A\n";
+} elsif ($percent < 25) {
+	$full_text = "";
+	$text_color = "#D4B16A\n";
+} elsif ($percent < 50) {
+	$full_text = "";
+	$text_color = "#D4CB6A\n";
+} elsif ($percent < 85) {
+	$full_text = "";
+	$text_color = "#B0CA65\n";
+} else {
+	$full_text = "";
+	$text_color = "#5AAC56\n";
+}
+if ($percent < 5) {
+	exit(33);
+}
+
+$full_text .= " $percent%";
 
 if ($status eq 'Discharging') {
-	$full_text .= ' DIS';
+	$full_text .= ' ';
 } elsif ($status eq 'Charging') {
-	$full_text .= ' CHR';
+	$full_text .= ' ';
 } elsif ($status eq 'Unknown') {
 	open (AC_ADAPTER, "acpi -a |") or die;
 	$ac_adapt = <AC_ADAPTER>;
@@ -51,9 +74,9 @@ if ($status eq 'Discharging') {
 		$ac_adapt = $1;
 
 		if ($ac_adapt eq 'on-line') {
-			$full_text .= ' CHR';
+			$full_text .= ' ';
 		} elsif ($ac_adapt eq 'off-line') {
-			$full_text .= ' DIS';
+			$full_text .= ' ';
 		}
 	}
 }
@@ -67,23 +90,7 @@ if ($acpi =~ /(\d\d:\d\d):/) {
 # print text
 print "$full_text\n";
 print "$short_text\n";
-
-# consider color and urgent flag only on discharge
-if ($status eq 'Discharging') {
-
-	if ($percent < 20) {
-		print "#FF0000\n";
-	} elsif ($percent < 40) {
-		print "#FFAE00\n";
-	} elsif ($percent < 60) {
-		print "#FFF600\n";
-	} elsif ($percent < 85) {
-		print "#A8FF00\n";
-	}
-
-	if ($percent < 5) {
-		exit(33);
-	}
-}
+# print color
+print $text_color;
 
 exit(0);
