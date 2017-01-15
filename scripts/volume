@@ -51,7 +51,7 @@ volume() {
 #------------------------------------------------------------------------
 
 case $BLOCK_BUTTON in
-  3) amixer -q -D $MIXER sset $SCONTROLtoggle 
+  3) amixer -q -D $MIXER sset $SCONTROL toggle 
 	 amixer -q -D $MIXER sset Speaker unmute 
 	 amixer -q -D $MIXER sset Headphone unmute 
 	;;  # right click, mute/unmute
