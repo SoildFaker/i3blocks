@@ -31,11 +31,11 @@ except ImportError:
 # _Settings____________________________________________________________________
 
 config = {
-    'HOST': 'imap-mail.outlook.com',
+    'HOST': 'imap-mail.outlook.com', # mail imap server
     'PORT': 993,
     'USER': 'your email',
     'PASS': 'passwd',
-    'URL': 'https://outlook.live.com/'
+    'URL': 'https://outlook.live.com/' 
 }
 # _____________________________________________________________________________
 
