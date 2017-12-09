@@ -1,0 +1,18 @@
+#!/bin/bash
+brightness() {
+  BRIGHT=$(awk -F"[()]" 'NR==2{ print $2 }' <(brightnessctl))
+  #BRIGHT=$(brightnessctl g)
+  BRIGHT_TEXT="$BRIGHT"
+  echo " $BRIGHT_TEXT"
+}
+
+#------------------------------------------------------------------------
+
+case $BLOCK_BUTTON in
+  3) brightnessctl s 100% > /dev/null;;
+  4) brightnessctl s 10%+ > /dev/null;; # scroll up, increase
+  5) brightnessctl s 10%- > /dev/null;; # scroll down, decrease
+esac
+sleep 0.1
+brightness
+
