@@ -1,0 +1,16 @@
+#!/bin/bash
+shadowsocks() {
+  ISACTIVE=$(systemctl is-failed shadowsocks-libev@tokyo)
+  if [ "$ISACTIVE" == "active" ]; then
+    COLOR="#5AAC56"
+    TEXT="●"
+  else
+    COLOR="#D46D6A"
+    TEXT="×"
+  fi
+  echo " $TEXT"
+  echo " $TEXT"
+  echo $COLOR
+}
+
+shadowsocks
