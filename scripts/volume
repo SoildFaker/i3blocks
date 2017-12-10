@@ -25,24 +25,11 @@ STEP="5%"
 volume() {
   IS_MUTE=$(awk -F"[][]" '/dB/ { print $6 }' <(amixer -D $MIXER get $SCONTROL))
   VOLUME=$(awk -F"[][]" '/dB/ { print $2 }' <(amixer -D $MIXER get $SCONTROL))
-  MOCP_NUM=$(ps -ef | grep "mocp" | grep -v "grep" | wc -l)
-  
-  if [ $MOCP_NUM -gt 0 ]; then
-    PLAYING=$(/usr/bin/mocp -Q %song)
-    VOLUME_TEXT="  $VOLUME~$PLAYING"
-    if [ "$IS_MUTE" = "off" ]; then
-      VOLUME_TEXT=" MUTE~$PLAYING"
-    fi
-    echo "$VOLUME_TEXT"
-    echo "$VOLUME_TEXT"
-    echo "#E93A66"
-  else
-    VOLUME_TEXT="  $VOLUME"
-    if [ "$IS_MUTE" = "off" ]; then
-      VOLUME_TEXT=" MUTE"
-    fi
-    echo "$VOLUME_TEXT"
+  VOLUME_TEXT="  $VOLUME"
+  if [ "$IS_MUTE" = "off" ]; then
+    VOLUME_TEXT=" MUTE"
   fi
+  echo "$VOLUME_TEXT"
 #  if [ $VOLUME -lt 10% ]; then
 #    VOLUME=""
 #  fi
