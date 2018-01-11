@@ -34,7 +34,7 @@ config = {
     'HOST': 'imap-mail.outlook.com', # mail imap server
     'PORT': 993,
     'USER': 'enbinli@outlook.com',
-    'PASS': 'password',
+    'PASS': 'passwd',
     'URL': 'https://outlook.live.com/' 
 }
 # _____________________________________________________________________________
